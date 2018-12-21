@@ -20,6 +20,7 @@ return [
             ],
         ],
         'response' => [
+            'format' => 'json',
             'formatters' => [
                 'json' => [
                     'class' => 'yii\web\JsonResponseFormatter',

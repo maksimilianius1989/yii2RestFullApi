@@ -2,9 +2,9 @@ require 'yaml'
 require 'fileutils'
 
 domains = {
-  frontend: 'project.dev',
-  backend:  'backend.project.dev',
-  api:  'api.project.dev'
+  frontend: 'rest.loc',
+  backend:  'backend.rest.loc',
+  api:  'api.rest.loc'
 }
 
 config = {
