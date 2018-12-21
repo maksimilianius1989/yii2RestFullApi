@@ -32,7 +32,7 @@ class ProfileCest
 
     public function authenticated(ApiTester $I)
     {
-        $I->amBearerAuthenticated('token-corrent');
+        $I->amBearerAuthenticated('token-correct');
         $I->sendGET('/profile');
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson([
