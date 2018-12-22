@@ -1,33 +1,32 @@
 <?php
 
-
 namespace api\tests\api;
 
-
-use api\tests\ApiTester;
+use \api\tests\ApiTester;
 use common\fixtures\TokenFixture;
 use common\fixtures\UserFixture;
+use common\models\User;
 
 class ProfileCest
 {
-    public function _before(ApiTester $i)
+    public function _before(ApiTester $I)
     {
-        $i->haveFixtures([
+        $I->haveFixtures([
             'user' => [
                 'class' => UserFixture::className(),
-                'dataFile' => codecept_data_dir() . 'user.php',
+                'dataFile' => codecept_data_dir() . 'user.php'
             ],
             'token' => [
                 'class' => TokenFixture::className(),
-                'dataFile' => codecept_data_dir() . 'token.php',
+                'dataFile' => codecept_data_dir() . 'token.php'
             ],
         ]);
     }
 
-    public function access(ApiTester $i)
+    public function access(ApiTester $I)
     {
-        $i->sendGET('/profile');
-        $i->seeResponseCodeIs(401);
+        $I->sendGET('/profile');
+        $I->seeResponseCodeIs(401);
     }
 
     public function authenticated(ApiTester $I)
@@ -43,11 +42,11 @@ class ProfileCest
         $I->dontSeeResponseJsonMatchesJsonPath('$.password_hash');
     }
 
-    public function expired(ApiTester $i)
+    public function expired(ApiTester $I)
     {
-        $i->amBearerAuthenticated('token-expired');
-        $i->sendGET('/profile');
-        $i->seeResponseCodeIs(401);
+        $I->amBearerAuthenticated('token-expired');
+        $I->sendGET('/profile');
+        $I->seeResponseCodeIs(401);
     }
 
     public function update(ApiTester $I)

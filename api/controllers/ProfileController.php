@@ -17,8 +17,8 @@ class ProfileController extends Controller
         $behaviors = parent::behaviors();
 
         $behaviors['authenticator']['authMethods'] = [
-            HttpBasicAuth::className(),
-            HttpBearerAuth::className(),
+              HttpBasicAuth::className(),
+              HttpBearerAuth::className(),
         ];
 
         $behaviors['access'] = [
@@ -59,8 +59,11 @@ class ProfileController extends Controller
         ];
     }
 
-    public function findModel()
+    /**
+     * @return User
+     */
+    private function findModel()
     {
-        return User::findOne(Yii::$app->user->id);
+        return User::findOne(\Yii::$app->user->id);
     }
 }

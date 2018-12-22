@@ -2,9 +2,9 @@
 
 namespace api\models;
 
-use common\models\Post;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\Post;
 
 class PostSearch extends Post
 {
@@ -20,6 +20,10 @@ class PostSearch extends Post
         return Model::scenarios();
     }
 
+    /**
+     * @param array $params
+     * @return ActiveDataProvider
+     */
     public function search($params)
     {
         $query = Post::find();
@@ -30,7 +34,7 @@ class PostSearch extends Post
 
         $this->load($params);
 
-        if (!$this->validate($params)) {
+        if (!$this->validate()) {
             return $dataProvider;
         }
 
