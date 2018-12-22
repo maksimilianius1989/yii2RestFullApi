@@ -18,7 +18,7 @@ class PostsCest
             ],
             'token' => [
                 'class' => TokenFixture::className(),
-                'dataFile' => codecept_data_dir() . 'token.php',
+                'dataFile' => codecept_data_dir() . 'token.php'
             ],
             'post' => [
                 'class' => PostFixture::className(),
@@ -112,7 +112,7 @@ class PostsCest
 
     public function update(ApiTester $I)
     {
-        $I->amBearerAuthenticated('token-corrent');
+        $I->amBearerAuthenticated('token-correct');
         $I->sendPATCH('/posts/1', [
             'title' => 'New Title',
         ]);
@@ -125,14 +125,14 @@ class PostsCest
 
     public function updateForbidden(ApiTester $I)
     {
-        $I->amBearerAuthenticated('token-corrent');
+        $I->amBearerAuthenticated('token-correct');
         $I->sendPATCH('/posts/2', [
             'title' => 'New Title',
         ]);
         $I->seeResponseCodeIs(403);
     }
 
-    public function deleteUnautorized(ApiTester $I)
+    public function deleteUnauthorized(ApiTester $I)
     {
         $I->sendDELETE('/posts/1');
         $I->seeResponseCodeIs(401);
@@ -140,8 +140,15 @@ class PostsCest
 
     public function delete(ApiTester $I)
     {
-        $I->amBearerAuthenticated('token-corrent');
+        $I->amBearerAuthenticated('token-correct');
         $I->sendDELETE('/posts/1');
+        $I->seeResponseCodeIs(204);
+    }
+
+    public function deleteForbidden(ApiTester $I)
+    {
+        $I->amBearerAuthenticated('token-correct');
+        $I->sendDELETE('/posts/2');
         $I->seeResponseCodeIs(403);
     }
 }

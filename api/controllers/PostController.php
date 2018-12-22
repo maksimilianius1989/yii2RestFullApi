@@ -35,7 +35,7 @@ class PostController extends ActiveController
                 [
                     'allow' => true,
                     'roles' => ['@'],
-                ]
+                ],
             ],
         ];
 
@@ -58,7 +58,7 @@ class PostController extends ActiveController
         $model->load(Yii::$app->getRequest()->getBodyParams(), '');
         if ($model->save()) {
             $response = Yii::$app->getResponse();
-            $response->getStatusCode(201);
+            $response->setStatusCode(201);
             $id = implode(',', array_values($model->getPrimaryKey(true)));
             $response->getHeaders()->set('Location', Url::toRoute(['view', 'id' => $id], true));
         } elseif (!$model->hasErrors()) {
@@ -78,7 +78,7 @@ class PostController extends ActiveController
     {
         if (in_array($action, ['update', 'delete'])) {
             if (!Yii::$app->user->can(Rbac::MANAGE_POST, ['post' => $model])) {
-                throw new ForbiddenHttpException('Forbidden.');
+                throw  new ForbiddenHttpException('Forbidden.');
             }
         }
     }
